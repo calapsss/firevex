@@ -9,6 +9,7 @@ type UserT = {
     user: any,
     isLogin: boolean
     isEmailVerified?: boolean
+    accessToken?: string
 }
 
 const AuthProvider = ({children}:any) =>{
@@ -29,9 +30,6 @@ const AuthProvider = ({children}:any) =>{
     },[])
 
    
-
-    console.log("User State ",user.user)
-
     return (
         <Context.Provider value={{user,setUser}}>
             { children}

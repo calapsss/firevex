@@ -1,16 +1,19 @@
 
 
 
+import Link from 'next/link';
 import React from 'react';
 
 export default function Logo() {
     return(
         <>
             <div>
-                    <p className="logo">
-                    quantaIQ
+                <Link href="/">                
+                    <p className="logo font-extrabold text-2xl">
+                    Rapid AI
                     </p>
-                </div>
+                </Link>
+            </div>
         </>
     );
 }

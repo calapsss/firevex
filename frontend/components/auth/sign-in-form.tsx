@@ -12,15 +12,12 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 import {auth} from '@/services/firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "@/components/ui/use-toast";
-
-
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -29,7 +26,6 @@ const formSchema = z.object({
 
 export default function SignInForm() {
   const { toast } = useToast();
-  const [isResetOpen, setIsResetOpen] = useState(false);
   
 
   const form = useForm<z.infer<typeof formSchema>>({

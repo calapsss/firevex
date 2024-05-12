@@ -91,11 +91,11 @@
   }
 
   .navbar {
-    @apply animate-in fade-in fixed bg-white top-0 z-30 h-20  w-full flex w-full items-center justify-between  py-2 border-b border-gray-200 max-md:h-16
+    @apply animate-in fade-in fixed bg-white top-0 z-30 h-16  w-full flex w-full items-center justify-between  py-2 border-b border-gray-200 max-md:h-16
       }
 
   .navbar-container {
-    @apply w-full mr-5 ml-5 md:ml-8 md:mr-8   flex flex-row 
+    @apply w-full mr-5 ml-5 md:ml-8 md:mr-8  flex flex-row 
   }
 
   .bottombar {

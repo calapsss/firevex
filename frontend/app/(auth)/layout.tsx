@@ -5,6 +5,7 @@ import ConvexClientProvider from "../../providers/ConvexClientProvider";
 import AuthProvider from '../../providers/AuthProvider';
 import { Toaster } from "../../components/ui/toaster";
 import Image from "next/image";
+import Logo from "@/components/shared/logo/logo";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,10 +25,8 @@ export default function RootLayout({
    
               <main className="max-h-screen justify-center">
                   <section className = "main-container">
-                    <div className="mt-20 w-full items-center">
-                      <p className="text-4xl font-bold text-primary items-center text-center">
-                        quantaIQ
-                      </p>
+                    <div className="mt-20 w-full items-center justify-center text-center">
+                      <Logo />
                     </div>
                     {children}
                   </section>

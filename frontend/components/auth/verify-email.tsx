@@ -29,7 +29,7 @@ export default function VerifyEmail(){
             user.user.reload().then(() => {
                 if (user.user.emailVerified) {
                     clearInterval(verificationCheckInterval);
-                    router.push("/onboarding");
+                    router.push("/");
                 }
             });
         };
@@ -37,7 +37,7 @@ export default function VerifyEmail(){
         const verificationCheckInterval = setInterval(checkEmailVerification, 5000); // Check every 5 seconds
 
         return () => clearInterval(verificationCheckInterval);
-    }, []);
+    }, [user.user, router]);
 
 
     useEffect(() => {

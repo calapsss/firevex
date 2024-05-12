@@ -8,13 +8,13 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // Attention Please add your firebase console config here
 const firebaseConfig = {
-  apiKey: "AIzaSyC8ZegoV7b3ijwsJ-TgQwtmikQek3VZk7w",
-  authDomain: "quanta-iq.firebaseapp.com",
-  projectId: "quanta-iq",
-  storageBucket: "quanta-iq.appspot.com",
-  messagingSenderId: "872699300736",
-  appId: "1:872699300736:web:026355ec07e81b2f4c8f65",
-  measurementId: "G-RBG41QBN8R"
+  apiKey: "AIzaSyD1CsmvZaiipwOY_xVh1uY-6QMs-DSyxFE",
+  authDomain: "fintac-boilerplate.firebaseapp.com",
+  projectId: "fintac-boilerplate",
+  storageBucket: "fintac-boilerplate.appspot.com",
+  messagingSenderId: "733486162666",
+  appId: "1:733486162666:web:a389df4dd48fea8fed2d93",
+  measurementId: "G-DN43WMTPW3"
 };
   
 // Initialize Firebase

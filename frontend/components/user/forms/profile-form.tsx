@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { api } from "@/convex/_generated/api";
-import { useQuery, useMutation } from "convex/react"
+import { useQuery, useMutation, useConvexAuth } from "convex/react"
 import { useRouter } from "next/navigation";
 import { isBase64Image } from "@/lib/utils";
 import {
@@ -25,7 +25,7 @@ import {
     AvatarFallback,
     AvatarImage,
   } from "@/components/ui/avatar"
-import { AuthContext } from "@/providers/AuthProvider";
+import  { AuthContext } from "@/providers/AuthProvider";
 import { on } from "events";
 import { toast } from "@/components/ui/use-toast";
 import {handleAvatarUpload} from "@/lib/actions/user.aws.actions";
@@ -38,63 +38,85 @@ import {
 } from "@/components/ui/select";
 
 
-
 const formSchema = z.object({
-  Username: z.string().min(3).max(20),
-  FirstName: z.string().min(3).max(20),
-  LastName: z.string().min(3).max(20),
-  AvatarURL: z.string().url(),
-  Role: z.enum(["Teacher", "Student"]),
-  Bio: z.string().max(200).optional(),
+  username: z.string().min(3).max(20),
+  firstName: z.string().min(3).max(20),
+  lastName: z.string().min(3).max(20),
+  avatarUrl: z.string(),
+  role: z.string(),
+  bio: z.string().max(200).optional(),
 })
+const defaultAvatar = "/assets/avatar/avatar.png";
 
-interface Props {
-  user: {
-      user_id: string,
-      email: string,
-  };
+type formAction = "onboarding" | "edit-profile";
+
+interface ProfileForm {
+  formAction: formAction,
 }
 
-const defaultAvatar = "/assets/avatar/avatar.png";
-export default function OnboardingForm({user} : Props) {
+export default function ProfileForm({formAction} : ProfileForm) {
     const [isLoading, setIsLoading] = useState(false);
-    //console.log("Form", user);
-    const router = useRouter();
+    const userConvex = useQuery(api.functions.users.getUser);
     const createUser = useMutation(api.functions.users.createUser);
-   
+    const updateUser = useMutation(api.functions.users.updateUser);
+    
+    const { user } : any = AuthContext();
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-          Username: "",
-          FirstName: "",
-          LastName: "",
-          AvatarURL: defaultAvatar,
-          Role: "Student",
-          Bio: "",
+          username: userConvex?.username ||  "",
+          firstName: userConvex?.firstName || "",
+          lastName: userConvex?.lastName ||  "",
+          avatarUrl: userConvex?.avatarUrl || defaultAvatar,
+          role: userConvex?.role ||  "Student",
+          bio: userConvex?.bio || "",
       },
     })
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-      
-
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {      
         try {
           setIsLoading(true);
+          const avatarUrl = await handleAvatarUpload(values.avatarUrl, user.user.uid);
+          if (formAction == "onboarding") {
+            await createUser({
+              data: {
+                  username: values.username,
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  email: user.user.email, //Email from props
+                  role: values.role,
+                  onboarded: true,
+                  bio: values.bio,
+                  avatarUrl:  avatarUrl as string,
+                }
+            });
+            setIsLoading(false)
+            toast({
+              title: `Welcome ${values.firstName}`,
+              description: "We have successfully onboarded you"
+            })
+          }
+
+          if (formAction == "edit-profile") {
+            await updateUser({
+              data: {
+                  username: values.username,
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                  email: user.user.email, //Email from props
+                  role: values.role,
+                  onboarded: true,
+                  bio: values.bio,
+                  avatarUrl:  avatarUrl as string,
+                }
+            });
+            setIsLoading(false)
+            toast({
+              title: `We have updated  @${values.username}`,
+              description: "We have successfully updated your profile"
+            })
+          }
           
-          const avatarUrl = await handleAvatarUpload(values.AvatarURL, user.user_id);
-          
-          const userCreated = await createUser({
-            data: {
-                UserID: user.user_id, //uid from props
-                Username: values.Username,
-                FirstName: values.FirstName,
-                LastName: values.LastName,
-                Email: user.email, //Email from props
-                Role: values.Role,
-                Onboarded: false,
-                Bio: values.Bio,
-                AvatarURL:  avatarUrl as string,
-              }
-              });
           
         } catch (error: any) {
           const regex = /Uncaught Error:\s*(.*)/;
@@ -146,10 +168,10 @@ export default function OnboardingForm({user} : Props) {
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-start gap-5 pr-5 pl-5">
             <FormField
                 control={form.control}
-                name="AvatarURL"
+                name="avatarUrl"
                 render={({ field }) => (
                     <FormItem className="flex flex-col items-center gap-3">
-                    <FormLabel className='flex flex-col mt-5'>
+                    <div className='flex flex-col mt-5'>
                         {field.value ? (
                         <Avatar className="w-full h-auto">
                           <AvatarImage src={field.value} alt="@gitit" />
@@ -161,7 +183,7 @@ export default function OnboardingForm({user} : Props) {
                           <AvatarFallback>GG</AvatarFallback>
                         </Avatar>
                         )}
-                    </FormLabel>
+                    </div>
                     <FormControl className='text-base-semibold text-gray-200 w-full'>
                         <>
                         
@@ -181,7 +203,7 @@ export default function OnboardingForm({user} : Props) {
                 />
               <FormField
                 control={form.control}
-                name="Username"
+                name="username"
                 render={({ field }) => (
                   <FormItem className="flex w-full flex-col gap-2 ">
                     <FormLabel >Username</FormLabel>
@@ -195,7 +217,7 @@ export default function OnboardingForm({user} : Props) {
               <div className="md:flex-row flex flex-col md:space-x-4 space-y-2 md:space-y-0">
               <FormField
                 control={form.control}
-                name="FirstName"
+                name="firstName"
                 render={({ field }) => (
                   <FormItem >
                     <FormLabel >First Name</FormLabel>
@@ -208,7 +230,7 @@ export default function OnboardingForm({user} : Props) {
               />
               <FormField
                 control={form.control}
-                name="LastName"
+                name="lastName"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel >Last Name</FormLabel>
@@ -223,7 +245,7 @@ export default function OnboardingForm({user} : Props) {
               
               <FormField
                 control={form.control}
-                name="Role"
+                name="role"
                 render={({ field }) => (
                   <FormItem>
                   <FormLabel>Role</FormLabel>
@@ -247,7 +269,7 @@ export default function OnboardingForm({user} : Props) {
 
               <FormField
                 control={form.control}
-                name="Bio"
+                name="bio"
                 render={({ field }) => (
                   <FormItem className="flex flex-col ">
                     <FormLabel >Bio</FormLabel>
