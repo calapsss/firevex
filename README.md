@@ -38,7 +38,7 @@
 - Manage Properties  
 - Search Properties 
 
-## Ongoing
+## Done
 - [x] Auth Sync with Firebase and Convex
 - [x] User Login Component
 - [x] Proper Convex Mutations for storing Users
@@ -50,7 +50,9 @@
 - [x] CRUD Functions for Contents
 - [x] Basic Saas Schema
 
-## Todo 
+## Ongoing 
+- [ ] UI Components for Landing Page
+- [ ] Landing Page 
 - [ ] UI Components for Left Sidebar
 - [ ] UI Components for Create Team 
 - [ ] Page for Create Team
