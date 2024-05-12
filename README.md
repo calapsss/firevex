@@ -39,9 +39,28 @@
 - Search Properties 
 
 ## Ongoing
-[/] - Auth Sync with Firebase and Convex
-[/] - User Login Component
-[/] - Proper Convex Mutations for storing Users
-[/] - Edit Profile Component
-[/] - Onboarding Component
+- [x] Auth Sync with Firebase and Convex
+- [x] User Login Component
+- [x] Proper Convex Mutations for storing Users
+- [x] Edit Profile Component
+- [x] Onboarding Component
+- [x] CRUD Functions for Members
+- [x] CRUD Functions for Teams
+- [x] CRUD Functions for Topics
+- [x] CRUD Functions for Contents
+- [x] Basic Saas Schema
+
+## Todo 
+- [ ] UI Components for Left Sidebar
+- [ ] UI Components for Create Team 
+- [ ] Page for Create Team
+- [ ] UI Components for Team Dashboard Cards
+- [ ] UI Components for Team Roster Table
+- [ ] Page for team dashboard
+- [ ] UI Components for Universal Adjustable Table
+- [ ] UI Components for Create/Edit Topic
+- [ ] Page for Topic
+- [ ] UI Components for Create Content
+- [ ] UI Components for Edit Content
+- [ ] UI Components for Content Page
 
