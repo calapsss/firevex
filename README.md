@@ -51,8 +51,6 @@
 - [x] Basic Saas Schema
 
 ## Ongoing 
-- [ ] UI Components for Landing Page
-- [ ] Landing Page 
 - [ ] UI Components for Left Sidebar
 - [ ] UI Components for Create Team 
 - [ ] Page for Create Team
@@ -65,4 +63,6 @@
 - [ ] UI Components for Create Content
 - [ ] UI Components for Edit Content
 - [ ] UI Components for Content Page
+- [ ] UI Components for Landing Page
+- [ ] Landing Page 
 
