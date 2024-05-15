@@ -75,7 +75,7 @@ function Upgrade(){
     )
 }
 
-function Links({ pathname }: { pathname: string }){
+export function Links({ pathname }: { pathname: string }){
     return (
         <>
             <div className="flex-1 overflow-auto py-2">

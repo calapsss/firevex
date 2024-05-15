@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link";
-import gititLogo, { LogoDash } from "../logo/logo"
+import gititLogo, { LogoDash, LogoImg } from "../logo/logo"
 import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {
       DropdownMenu,
       DropdownMenuContent,
@@ -21,12 +21,13 @@ import useUserConvexData from "@/hooks/useUserConvexData";
 import { useEffect, useState } from "react";
 import { Package2Icon, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Links } from "./leftnav";
 export default function NavBar(){
     const auth = getAuth();
     const [avatar, setAvatar] = useState("/assets/avatar/avatar.png");
     const {isAuthenticated} = useConvexAuth();
     const convexUser = useUserConvexData();
-
+    const pathname = usePathname();
     const router = useRouter();
     const logout = async () => {
         try {
@@ -87,11 +88,11 @@ if(!isAuthenticated) return ( <>
 if (isAuthenticated) return (
       <>
             <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-          <Link className="lg:hidden" href="#">
-            <Package2Icon className="h-6 w-6" />
+          <Link className="lg:hidden" href="/">
+            <LogoImg />
             <span className="sr-only">Home</span>
           </Link>
-          <div className="flex-1">
+          <div className="flex-1 max-sm:hidden">
             <h1 className="font-semibold text-lg">Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">
@@ -122,6 +123,9 @@ if (isAuthenticated) return (
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <div className="hidden max-sm:block">
+                  <Links pathname={pathname} />
+                </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem><Link href="/profile"> Settings</Link></DropdownMenuItem>
                 <DropdownMenuItem><Link href="/support">Support</Link></DropdownMenuItem>

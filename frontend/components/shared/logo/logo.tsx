@@ -21,13 +21,25 @@ export default function Logo() {
                         className="w-16 h-16"
                     />
 
-                    <p className={`ml-2 mt-2 items-center text-center logo font-extrabold  text-4xl ${poppins.className}`}>
-                        Rapid AI
+                    <p className={`ml-2 mt-2 items-center text-center logo font-extrabold text-4xl ${poppins.className}`}>
+                        Rapid <span className="text-orange-500">AI</span>
                     </p>
                 </Link>
             </div>
         </>
     );
+}
+
+export function LogoImg() {
+    return (
+        <Image
+                        src="/assets/brand/quick.png"
+                        width={100}
+                        height={100}
+                        alt="Rapid AI Logo"
+                        className="w-10 h-10"
+                    />
+    )
 }
 
 export function LogoDash() {
@@ -43,7 +55,7 @@ export function LogoDash() {
                         />
 
                     <p className={`ml-2 mt-1 items-center text-center logo font-extrabold  text-xl ${poppins.className}`}>
-                    Rapid AI
+                    Rapid <span className="text-orange-500">AI</span>
                     </p>
                 </Link>
           
