@@ -10,7 +10,7 @@ import {
 import {
     Button
 } from "@/components/ui/button"
-import type {Team} from "@/convex/functions/teams.ts"
+import type {Team} from "@/convex/functions/teams"
 import {
     Eye
 } from "lucide-react"
@@ -21,17 +21,19 @@ interface Props {
 
 
 export default function TeamCard({team} : Props){
-    return (
+    if(team != null) return (
         <>
             <Card className="w-full">
                 <CardHeader className="grid grid-flow-row-dense grid-cols-5">
                     <div className="col-span-4">
                     <CardTitle>{team.name}</CardTitle>
-                    <CardDescription>by @{team.creator.username}</CardDescription>
+                    <CardDescription>by @{team.creator!.username}</CardDescription>
                 
                     </div>
+                    <div className="text-xs">
+                    <Button> <Eye /> View </Button>
+                    </div>
                     
-                    <Button classname="text-xs"> <Eye /> View </Button>
             
                     
                 </CardHeader>

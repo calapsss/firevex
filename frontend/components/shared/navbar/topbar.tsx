@@ -49,7 +49,7 @@ export default function NavBar(){
                         setAvatar(user.avatarUrl)
                   }
             });
-      }, [convexUser, isAuthenticated]);
+      }, [convexUser, isAuthenticated, router]);
      
 
     
@@ -106,7 +106,7 @@ if (isAuthenticated) return (
                   size="icon"
                   variant="ghost"
                 >
-                  <img
+                  <Image
                     alt="Avatar"
                     className="rounded-full"
                     height="32"
@@ -123,10 +123,10 @@ if (isAuthenticated) return (
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem><Link href="/profile"> Settings</Link></DropdownMenuItem>
+                <DropdownMenuItem><Link href="/support">Support</Link></DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

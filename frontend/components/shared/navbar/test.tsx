@@ -4,6 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
@@ -102,7 +103,7 @@ export default function Component() {
                   size="icon"
                   variant="ghost"
                 >
-                  <img
+                  <Image
                     alt="Avatar"
                     className="rounded-full"
                     height="32"

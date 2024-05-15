@@ -44,10 +44,7 @@ function LeftSidebar() {
                     </div>
                     <Links pathname={pathname} />
                     <Upgrade />
-                    <div className="flex cursor-pointer gap-4 pl-8 p-4 text-sm items-center" onClick={logout}>
-                        <LogOutIcon className="w-4 h-4"/>
-                        Logout 
-                    </div>
+
                 </div>
             </div>
         </div>
