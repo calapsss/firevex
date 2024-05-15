@@ -55,8 +55,8 @@ export default function NavBar(){
     
 if(!isAuthenticated) return ( <>
       <div className="navbar ">
-            <nav className="navbar-container">
-                 <div className="md:pb-2 w-full mt-2 pb-2">
+            <nav className="navbar-container items-center">
+                 <div className="justify-start md:pb-2 w-full mt-2 pb-2">
                       <LogoDash />
                  </div>
                  <div className="ml-auto max-md:pt-4 items-center">
