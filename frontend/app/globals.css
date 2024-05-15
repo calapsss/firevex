@@ -82,9 +82,6 @@
   .main-container{
     @apply w-full 
   }
-  .page-container{
-    @apply flex min-h-screen flex-col   md:ml-56 md:mr-56 pt-24 pl-24 max-md:pl-0 max-md:pt-20
-  }
 
   .form-page-container{
     @apply flex min-h-screen flex-col items-center gap-5 pt-8  max-md:pl-0 w-full
@@ -111,11 +108,11 @@
   }
 
   .leftsidebar {
-    @apply fixed left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto text-gray-700 font-semibold  pb-5 pt-28 max-md:hidden;
+    @apply grid min-h-screen w-full lg:grid-cols-[280px_1fr];
   }
 
   .leftsidebar_link {
-    @apply relative flex justify-start gap-4 rounded-lg p-3 text-white;
+    @apply  flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-500;
   }
 
   .primary-button {

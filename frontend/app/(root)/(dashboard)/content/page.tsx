@@ -7,7 +7,7 @@ export default function Page() {
     const userConvex = useQuery(api.functions.users.getUser);
     console.log(userConvex);
     if (userConvex != null) return (
-        <div className="form-page-container flex flex-col pt-24">
+        <div >
             <EditProfile/>
         </div>
     );
