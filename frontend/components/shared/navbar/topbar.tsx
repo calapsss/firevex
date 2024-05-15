@@ -11,7 +11,15 @@ import {
       DropdownMenuSeparator,
       DropdownMenuTrigger,
     } from "@/components/ui/dropdown-menu"
-    
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 import { AuthContext } from "@/providers/AuthProvider";
 import { getAuth, signOut } from "firebase/auth";
 import Image from "next/image";
@@ -22,6 +30,8 @@ import { useEffect, useState } from "react";
 import { Package2Icon, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Links } from "./leftnav";
+import EditProfile from "@/components/user/edit/profile-edit-card";
+import ProfileForm from "@/components/user/forms/profile-form";
 export default function NavBar(){
     const auth = getAuth();
     const [avatar, setAvatar] = useState("/assets/avatar/avatar.png");
@@ -87,7 +97,13 @@ if(!isAuthenticated) return ( <>
 
 if (isAuthenticated) return (
       <>
-            <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
+      <Dialog>
+
+      
+            <div className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
+          
+
+          
           <Link className="lg:hidden" href="/">
             <LogoImg />
             <span className="sr-only">Home</span>
@@ -127,14 +143,24 @@ if (isAuthenticated) return (
                   <Links pathname={pathname} />
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem><Link href="/profile"> Settings</Link></DropdownMenuItem>
+                <DropdownMenuItem><DialogTrigger> Edit Profile</DialogTrigger></DropdownMenuItem>
                 <DropdownMenuItem><Link href="/support">Support</Link></DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+           
           </div>
-        </header>
+        </div>
+                    
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Edit Profile</DialogTitle>
+                        <DialogDescription> Update Your Profile Details </DialogDescription>
+                      </DialogHeader>
+                      <ProfileForm formAction="edit-profile" />
+                    </DialogContent>
+        </Dialog>
       </>
 )
 }

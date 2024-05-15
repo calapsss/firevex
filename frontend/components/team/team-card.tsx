@@ -14,6 +14,8 @@ import type {Team} from "@/convex/functions/teams"
 import {
     Eye
 } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { useState } from "react"
 
 interface Props {
   team: Team,
@@ -21,23 +23,28 @@ interface Props {
 
 
 export default function TeamCard({team} : Props){
+
     if(team != null) return (
         <>
             <Card className="w-full">
-                <CardHeader className="grid grid-flow-row-dense grid-cols-5">
-                    <div className="col-span-4">
+                <CardHeader className="flex">
                     <CardTitle>{team.name}</CardTitle>
-                    <CardDescription>by @{team.creator!.username}</CardDescription>
-                
-                    </div>
-                    <div className="text-xs">
-                    <Button> <Eye /> View </Button>
-                    </div>
-                    
-            
-                    
+                    <div className="flex flex-row gap-2 items-center">
+                    <Avatar className="w-8 h-8">
+                        <AvatarImage src={team.creator?.avatarUrl || "/assets/avatar/avatar.png"} alt="@gitit" />
+                        <AvatarFallback>GG</AvatarFallback>
+                    </Avatar>
+                    <CardDescription>by @{team.creator?.username }</CardDescription>
+                    </div>   
                 </CardHeader>
-                
+                <CardContent>
+                 <CardDescription className="text-md">{team.description}</CardDescription>   
+                </CardContent>
+                <CardFooter>
+                    <div>
+                        <Button> <Eye /> View </Button>
+                    </div>
+                </CardFooter>
             </Card>
         
         </>

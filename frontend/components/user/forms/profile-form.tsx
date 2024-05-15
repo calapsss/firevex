@@ -39,7 +39,9 @@ import {
 
 
 const formSchema = z.object({
-  username: z.string().min(3).max(20),
+  username: z.string().min(3).max(20).refine(value => !/\s/.test(value), {
+    message: "Username must not contain spaces"
+  }),
   firstName: z.string().min(3).max(20),
   lastName: z.string().min(3).max(20),
   avatarUrl: z.string(),
@@ -171,31 +173,31 @@ export default function ProfileForm({formAction} : ProfileForm) {
                 name="avatarUrl"
                 render={({ field }) => (
                     <FormItem className="flex flex-col items-center gap-3">
-                    <div className='flex flex-col mt-5'>
-                        {field.value ? (
-                        <Avatar className="w-full h-auto">
-                          <AvatarImage src={field.value} alt="@gitit" />
-                          <AvatarFallback>GG</AvatarFallback>
-                        </Avatar>
-                        ) : (
-                        <Avatar  className="w-full h-auto">
-                          <AvatarImage src={"/assets/avatar/avatar.png"} alt="@gitit" />
-                          <AvatarFallback>GG</AvatarFallback>
-                        </Avatar>
-                        )}
-                    </div>
+                    
                     <FormControl className='text-base-semibold text-gray-200 w-full'>
-                        <>
-                        
+                        <div className="flex flex-row items-center gap-2">
+                        <div className='flex flex-col mt-5'>
+                            {field.value ? (
+                            <Avatar className="w-20 h-20">
+                              <AvatarImage src={field.value} alt="@gitit" />
+                              <AvatarFallback>GG</AvatarFallback>
+                            </Avatar>
+                            ) : (
+                            <Avatar  className="w-20 h-20">
+                              <AvatarImage src={"/assets/avatar/avatar.png"} alt="@gitit" />
+                              <AvatarFallback>GG</AvatarFallback>
+                            </Avatar>
+                            )}
+                        </div>
                           <Input
                           type='file'
                           accept='image/*'
                           placeholder='Add profile photo'
-                          className='text-xs'
+                          className='text-xs items-center mt-2'
                           onChange={(e) => handleImage(e, field.onChange)}
                           />
                           <FormMessage />
-                        </>
+                        </div>
                     </FormControl>
                     
                     </FormItem>
@@ -256,8 +258,8 @@ export default function ProfileForm({formAction} : ProfileForm) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Teacher">Teacher</SelectItem>
-                      <SelectItem value="Student">Student</SelectItem>
+                      <SelectItem value="Admin">Admin</SelectItem>
+                      <SelectItem value="Creator">Creator</SelectItem>
                     </SelectContent>
                   </Select>
   

@@ -49,8 +49,7 @@ type formAction = "create-team" | "edit-team";
 
 interface TeamForm {
   formAction: formAction,
-  teamId:  Id<"teams">
-}
+  teamId?:  Id<"teams"> }
 
 export default function TeamForm({formAction, teamId} : TeamForm) {
     const [isLoading, setIsLoading] = useState(false);
@@ -82,10 +81,10 @@ export default function TeamForm({formAction, teamId} : TeamForm) {
             })
           }
 
-          if (formAction == "edit-team") {
+          if (formAction == "edit-team" && teamId) {
             await updateTeam({
                 teamId: teamId,
-                name: values.name,
+                name: values.name, 
                 description: values.description,
                 visibility: values.visibility
             });
