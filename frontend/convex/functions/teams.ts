@@ -3,6 +3,7 @@ import { asyncMap } from 'modern-async'
 import { Doc, Id } from "../_generated/dataModel";
 import { query, mutation, QueryCtx } from "../_generated/server";
 import { v } from "convex/values";
+import { api } from "../_generated/api";
 
 //CREATE
 //Adds a new team to the database.
@@ -44,6 +45,15 @@ export const create = mutation({
             visibility: visibility 
         }
     )
+
+    if (newTeamId){
+      await ctx.scheduler.runAfter(0, api.functions.members.create, {
+        teamId: newTeamId,
+        userId: creator._id,
+        role: "creator"
+      })
+    }
+
     
     return newTeamId;
       

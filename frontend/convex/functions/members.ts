@@ -55,12 +55,23 @@ export const getTeamMembers = query ({
 })
 
 export const getUserTeams = query ({
-    args : {
-        userId: v.id("users")
-    },
-    handler: async (ctx, args) => {
+    handler: async (ctx) => {
+        //Get User Identity
+        const  identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+        throw new Error("No authenticated User")
+        }
+        //grab user identity
+        const creator  = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+        .unique();
+        //Validation
+        if(creator == null) {
+            throw new Error("Please Login to Create a Topic")
+        }
         const members = await ctx.db.query("members")
-            .withIndex("by_user", (q) => q.eq("userId", args.userId))
+            .withIndex("by_user", (q) => q.eq("userId",creator._id))
             .order("desc")
             .collect()
 

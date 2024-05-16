@@ -1,6 +1,7 @@
 "use client"
 import {  PaginatedQueryArgs,
     PaginatedQueryReference,
+    useConvex,
     usePaginatedQuery, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api"
 import { Topic } from "@/convex/functions/topics";
@@ -27,11 +28,13 @@ import {
 import {
     Card
   } from "@/components/ui/card"
-import TeamForm from "@/components/team/forms/create-team";
+import TopicForm from "@/components/topics/forms/create-topic";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Ellipsis, EllipsisIcon, UsersRound } from "lucide-react";
+import { BookOpenTextIcon, Ellipsis, EllipsisIcon, PencilIcon, UsersRound } from "lucide-react";
 import { start } from "repl";
+import useUserConvexData from "@/hooks/useUserConvexData";
+import { Id } from "@/convex/_generated/dataModel";
 type feedMode = "user" | "all";
 
 interface Props {
@@ -44,12 +47,27 @@ export default function TopicFeed({feedMode } : Props){
     // if (feedMode === "user" && userTeams )return (
     //     <Topics topics={userTeams} />
     // );
+   const convexUser = useUserConvexData();
+    const [currentUser, setUser] = useState<Id<"users"> | null>(null);
 
-    if (feedMode === "all") return (
+    useEffect(() => {
+        convexUser.then((user) => {
+              // Code to run when the convexUser promise is fulfilled
+           
+              if(user?._id){
+                setUser(user._id)
+          }
+           
+        });
+  }, [convexUser, currentUser]);
+
+    if (feedMode === "all" && currentUser !== null) return (
         <>
-            <PaginatedView query={api.functions.topics.all as PaginatedQueryReference} args={{}}/>
+            <PaginatedView query={api.functions.topics.getUserTopics as PaginatedQueryReference} args={{userId: currentUser}}/>
         </>
     )
+
+    
 }
 
 export function PaginatedView<Query extends PaginatedQueryReference>({
@@ -120,14 +138,14 @@ function Topics(props: {topics: Topic[]}){
     return (
         <Dialog>
         <ul className=" max-h-1/3 gap-3 md:grid md:grid-cols-4 ">
-            {props.topics.map((team: Topic) => (
-                <TopicCard key={team._id} topic={team}/> 
+            {props.topics.map((topic: Topic) => (
+                <TopicCard key={topic._id} topic={topic}/> 
             ))}
             
             <DialogTrigger className="h-full min-h-56 rounded-lg border bg-card text-card-foreground shadow-sm w-full items-center text-center hover:bg-gray-200">
                 <div className="text-lg font-semibold flex items-center justify-center h-full hover:font-bold">
                 
-                <UsersRound /> Create a Topic
+                <BookOpenTextIcon /> Create a Topic
                 
                 </div>
             </DialogTrigger>
@@ -137,9 +155,9 @@ function Topics(props: {topics: Topic[]}){
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>Create a Topic</DialogTitle>
-                <DialogDescription>Start your team by adding the details</DialogDescription>
+                <DialogDescription>Start a topic by adding the details</DialogDescription>
             </DialogHeader>
-            <TeamForm formAction="create-team"/>
+            <TopicForm formAction="create-topic"/>
         </DialogContent>
         </Dialog>
     )

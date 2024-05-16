@@ -39,24 +39,7 @@ function HomeDashboard() {
           <h2 className="text-2xl font-bold mb-2">Recent Topics</h2>
           <TopicFeed feedMode="all" />
         </section>
-        <section className="mb-6">
-          <h2 className="text-2xl font-bold mb-2">Recent Contents</h2>
-          <ul className="flex flex-wrap -mx-4">
-            <li className="w-full md:w-1/2 xl:w-1/3 p-4">
-              <div className="bg-white shadow-md p-4 rounded">
-                <h3 className="text-lg font-bold">Content 1</h3>
-                <p className="text-gray-600">Description of Content 1</p>
-              </div>
-            </li>
-            <li className="w-full md:w-1/2 xl:w-1/3 p-4">
-              <div className="bg-white shadow-md p-4 rounded">
-                <h3 className="text-lg font-bold">Content 2</h3>
-                <p className="text-gray-600">Description of Content 2</p>
-              </div>
-            </li>
-            {/* Add more content cards here */}
-          </ul>
-        </section>
+        
       </main>
     </div>
   );

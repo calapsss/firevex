@@ -23,7 +23,7 @@ interface Props {
 
 
 export default function TopicCard({topic} : Props){
-
+    console.log(topic)
     if(topic != null) return (
         <>
             <Card className="w-full">
@@ -31,10 +31,10 @@ export default function TopicCard({topic} : Props){
                     <CardTitle>{topic.name}</CardTitle>
                     <div className="flex flex-row gap-2 items-center">
                     <Avatar className="w-8 h-8">
-                        <AvatarImage src={topic.creator?.avatarUrl || "/assets/avatar/avatar.png"} alt="@gitit" />
+                        <AvatarImage src={topic.user?.avatarUrl || "/assets/avatar/avatar.png"} alt="@gitit" />
                         <AvatarFallback>GG</AvatarFallback>
                     </Avatar>
-                    <CardDescription>by @{topic.creator?.username }</CardDescription>
+                    <CardDescription>by @{topic.user?.username } in {topic.team?.name}</CardDescription>
                     </div>   
                 </CardHeader>
                 <CardContent>
