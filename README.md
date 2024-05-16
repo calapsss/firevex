@@ -49,11 +49,12 @@
 - [x] CRUD Functions for Topics
 - [x] CRUD Functions for Contents
 - [x] Basic Saas Schema
+- [x] UI Components for Left Sidebar
+- [x] UI Components for Create Team
 
 ## Ongoing 
-- [ ] UI Components for Left Sidebar
-- [ ] UI Components for Create Team 
 - [ ] Page for Create Team
+- [ ] Fix Topbar edit account etc. 
 - [ ] UI Components for Team Dashboard Cards
 - [ ] UI Components for Team Roster Table
 - [ ] Page for team dashboard
@@ -65,4 +66,4 @@
 - [ ] UI Components for Content Page
 - [ ] UI Components for Landing Page
 - [ ] Landing Page 
-
+- [ ] Create search functionality
