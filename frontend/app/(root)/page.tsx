@@ -5,6 +5,7 @@ import { useConvexAuth } from "convex/react";
 
 import Head from 'next/head';
 import TeamFeed from "@/components/team/team-feed";
+import TopicFeed from "@/components/topics/topic-feed"
 
 export default function Home() {
   const {isAuthenticated} = useConvexAuth();
@@ -36,21 +37,7 @@ function HomeDashboard() {
         </section>
         <section className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Recent Topics</h2>
-          <ul className="flex flex-wrap -mx-4">
-            <li className="w-full md:w-1/2 xl:w-1/3 p-4">
-              <div className="bg-white shadow-md p-4 rounded">
-                <h3 className="text-lg font-bold">Topic 1</h3>
-                <p className="text-gray-600">Description of Topic 1</p>
-              </div>
-            </li>
-            <li className="w-full md:w-1/2 xl:w-1/3 p-4">
-              <div className="bg-white shadow-md p-4 rounded">
-                <h3 className="text-lg font-bold">Topic 2</h3>
-                <p className="text-gray-600">Description of Topic 2</p>
-              </div>
-            </li>
-            {/* Add more topic cards here */}
-          </ul>
+          <TopicFeed feedMode="all" />
         </section>
         <section className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Recent Contents</h2>
