@@ -30,6 +30,8 @@ import {
 import TeamForm from "./forms/create-team";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { Ellipsis, EllipsisIcon, UsersRound } from "lucide-react";
+import { start } from "repl";
 type feedMode = "user" | "all";
 
 interface Props {
@@ -51,7 +53,6 @@ export default function TeamFeed({feedMode } : Props){
     )
 }
 
-
 export function PaginatedView<Query extends PaginatedQueryReference>({
     query,
     args,
@@ -64,6 +65,9 @@ export function PaginatedView<Query extends PaginatedQueryReference>({
         status,
         loadMore,
     } = usePaginatedQuery(query, args, { initialNumItems: 3 });
+
+    const [pages, setPages] = useState(teams);
+
 
     const [currentTeams, setCurrentTeam] = useState(teams);
     const [popItems, setPopItems] = useState(teams);
@@ -100,9 +104,10 @@ export function PaginatedView<Query extends PaginatedQueryReference>({
         <>
         
             <Teams teams={currentTeams} />
-            <div className="flex flex-row gap-3">
-                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadLess()}>Load Less</Button>
-                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadMore()}>Load More</Button>
+            <div className="flex flex-row gap-3 justify-center items-center">
+                
+                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadLess()}>Load Less <EllipsisIcon className="ml-2 w-4" /> </Button>
+                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadMore()}>Load More <EllipsisIcon className="ml-2 w-4" /> </Button>
             </div>
             
         </>
@@ -123,7 +128,7 @@ function Teams(props: {teams: Team[]}){
             <DialogTrigger className="h-full min-h-56 rounded-lg border bg-card text-card-foreground shadow-sm w-full items-center text-center hover:bg-gray-200">
                 <div className="text-lg font-semibold flex items-center justify-center h-full hover:font-bold">
                 
-                Create a Team
+                <UsersRound /> Create a Team
                 
                 </div>
             </DialogTrigger>
