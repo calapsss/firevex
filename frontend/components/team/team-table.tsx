@@ -19,16 +19,15 @@ import {
     TrashIcon,
     Wrench
 } from "lucide-react"
-import Separator from "@/components/ui/separator";
 
 
 export function TeamTable({teamId} : {teamId: string}) {
     const teamRoster = useQuery(api.functions.members.getTeamMembers, {teamId: teamId as Id<"teams">})
     console.log(teamRoster)
-    if (teamRoster) return (
+    if (teamRoster ) return (
        <>
         
-        
+
       <Table>
         <TableCaption>The Team Roster</TableCaption>
         <TableHeader>
@@ -42,9 +41,9 @@ export function TeamTable({teamId} : {teamId: string}) {
         <TableBody>
           {teamRoster.map((member) => (
             <TableRow key={member._id}>
-              <TableCell className="font-medium">{`${member.user.firstName} ${member.user.lastName}`}</TableCell>
+              <TableCell className="font-medium</TableRow>">{`${member.user?.firstName} ${member.user?.lastName}`}</TableCell>
               <TableCell>{member.role}</TableCell>
-              <TableCell>@{member.user.username}</TableCell>
+              <TableCell>@{member.user?.username}</TableCell>
               <TableCell className="text-right">
                 <div className="flex flex-row gap-3 justify-end">
                     <Button size="sm" className="text-xs" variant="outline"> <Wrench className="w-4 h-4" />  </Button>
