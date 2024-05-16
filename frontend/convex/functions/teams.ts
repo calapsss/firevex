@@ -73,6 +73,7 @@ export const all = query({
       return null
     }
 
+    
     //get all Public teams
     const allPublic = await ctx.db
     .query("teams")
@@ -112,6 +113,8 @@ export const userTeams = query({
 
     }
 })
+
+
 async function enrichTeams(ctx: QueryCtx, teams: Doc<"teams">[]){
     return await asyncMap(teams, (team) => enrichTeam(ctx, team));
 }

@@ -35,13 +35,14 @@ import { BookOpenTextIcon, Ellipsis, EllipsisIcon, PencilIcon, UsersRound } from
 import { start } from "repl";
 import useUserConvexData from "@/hooks/useUserConvexData";
 import { Id } from "@/convex/_generated/dataModel";
-type feedMode = "user" | "all";
+type feedMode = "user" | "all" | "team";
 
 interface Props {
   feedMode: feedMode
+  teamId?: Id<"teams">
 } 
 
-export default function TopicFeed({feedMode } : Props){
+export default function TopicFeed({feedMode, teamId } : Props){
     //Atleast ignore for now fix later
 
     // if (feedMode === "user" && userTeams )return (
@@ -66,6 +67,14 @@ export default function TopicFeed({feedMode } : Props){
             <PaginatedView query={api.functions.topics.getUserTopics as PaginatedQueryReference} args={{userId: currentUser}}/>
         </>
     )
+
+    if (feedMode === "team" && currentUser !== null && teamId) return (
+        <>
+            <PaginatedView query={api.functions.topics.getTeamTopics as PaginatedQueryReference} args={{teamId: teamId}}/>
+        </>
+    )
+
+
 
     
 }

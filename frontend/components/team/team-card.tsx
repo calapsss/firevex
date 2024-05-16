@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import {
     Card,
     CardContent,
@@ -16,7 +17,6 @@ import {
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { useState } from "react"
-
 interface Props {
   team: Team,
 }
@@ -41,9 +41,9 @@ export default function TeamCard({team} : Props){
                  <CardDescription className="text-md">{team.description}</CardDescription>   
                 </CardContent>
                 <CardFooter>
-                    <div>
+                    <Link href={`/teams/${team._id}`}>
                         <Button> <Eye /> View </Button>
-                    </div>
+                    </Link>
                 </CardFooter>
             </Card>
         
