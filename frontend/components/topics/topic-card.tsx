@@ -10,7 +10,7 @@ import {
 import {
     Button
 } from "@/components/ui/button"
-import type {Topic} from "@/convex/functions/topic"
+import type {Topic} from "@/convex/functions/topics"
 import {
     Eye
 } from "lucide-react"
