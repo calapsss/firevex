@@ -26,7 +26,7 @@ export default function TeamCard({team} : Props){
 
     if(team != null) return (
         <>
-            <Card className="w-full">
+            <Card className="w-full flex flex-col justify-between">
                 <CardHeader className="flex">
                     <CardTitle>{team.name}</CardTitle>
                     <div className="flex flex-row gap-2 items-center">

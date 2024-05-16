@@ -26,7 +26,7 @@ export default function TopicCard({topic} : Props){
     console.log(topic)
     if(topic != null) return (
         <>
-            <Card className="w-full">
+            <Card className="w-full flex flex-col justify-between">
                 <CardHeader className="flex">
                     <CardTitle>{topic.name}</CardTitle>
                     <div className="flex flex-row gap-2 items-center">

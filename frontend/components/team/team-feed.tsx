@@ -106,8 +106,8 @@ export function PaginatedView<Query extends PaginatedQueryReference>({
             <Teams teams={currentTeams} />
             <div className="flex flex-row gap-3 justify-center items-center">
                 
-                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadLess()}>Load Less <EllipsisIcon className="ml-2 w-4" /> </Button>
-                <Button className="mt-4" variant="outline" size="sm" onClick={() => handleLoadMore()}>Load More <EllipsisIcon className="ml-2 w-4" /> </Button>
+                <Button className="mt-4" variant="link" size="sm" onClick={() => handleLoadLess()}>Less Items<EllipsisIcon className="ml-2 w-4" /> </Button>
+                <Button className="mt-4" variant="link" size="sm" onClick={() => handleLoadMore()}>More Items <EllipsisIcon className="ml-2 w-4" /> </Button>
             </div>
             
         </>
