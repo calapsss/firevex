@@ -113,8 +113,8 @@ export function PaginatedView<Query extends PaginatedQueryReference>({
             loadMore(3);
         }    
         if (popItems.length >= 3 ){
-            setCurrentTopic([...currentTopics, ...popItems.slice(-3)]);
-            setPopItems(popItems.slice(0, -3));
+            setCurrentTopic([...currentTopics, ...popItems.slice(-2)]);
+            setPopItems(popItems.slice(0, -2));
         } else if (popItems.length > 0) {
             setCurrentTopic([...currentTopics, ...popItems]);
             setPopItems([]);

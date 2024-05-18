@@ -42,7 +42,7 @@ export default function TeamCard({team} : Props){
                 </CardContent>
                 <CardFooter>
                     <Link href={`/teams/${team._id}`}>
-                        <Button> <Eye /> View </Button>
+                        <Button > <Eye className="h-5 w-5" /> {` View `} </Button>
                     </Link>
                 </CardFooter>
             </Card>

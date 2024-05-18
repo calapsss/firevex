@@ -17,7 +17,7 @@ import Head from 'next/head';
 
 function ContentDashboard() {
   return (
-    <div className="h-screen flex flex-col">
+    <main className="h-screen flex flex-col">
       <Head>
         <title>Content Dashboard</title>
       </Head>
@@ -77,6 +77,6 @@ function ContentDashboard() {
           </ul>
         </section>
       </main>
-    </div>
+    </main>
   );
 }

@@ -8,7 +8,7 @@ import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import NavBar from "@/components/shared/navbar/topbar";
 import { Toaster } from "@/components/ui/toaster";
 import LeftSidebar from "@/components/shared/navbar/leftnav";
-
+import Transition from "@/components/animations/transition";
 export const metadata: Metadata = {
   title: "Rapid AI",
   description: "Ship your AI App in a day",
@@ -28,7 +28,7 @@ export default function RootLayout({
             <LeftSidebar />
             <div className="flex flex-col min-h-screen ">
               <NavBar />
-              <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+              <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">           
               {children}
               </main>
               

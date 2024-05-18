@@ -81,7 +81,7 @@ export function Links({ pathname }: { pathname: string }){
             <div className="flex-1 overflow-auto py-2">
                 <nav className="grid items-start px-4 text-sm font-medium">
                     <Link
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:scale-105 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
                             pathname === "/" ? "bg-gray-100 text-gray-800" : ""
                         }`}
                         href="/"
@@ -90,7 +90,7 @@ export function Links({ pathname }: { pathname: string }){
                         Home
                     </Link>
                     <Link
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:scale-105 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
                             pathname === "/teams" ? "bg-gray-100 text-gray-800" : ""
                         }`}
                         href="/teams"
@@ -99,7 +99,7 @@ export function Links({ pathname }: { pathname: string }){
                         Teams
                     </Link>
                     <Link
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50 ${
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:scale-105 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50 ${
                             pathname === "/topics" ? "bg-gray-100 text-gray-800" : ""
                         }`}
                         href="/topics"
@@ -108,7 +108,7 @@ export function Links({ pathname }: { pathname: string }){
                         Topics
                     </Link>
                     <Link
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:scale-105 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
                             pathname === "/content" ? "bg-gray-100 text-gray-800" : ""
                         }`}
                         href="/content"
@@ -117,7 +117,7 @@ export function Links({ pathname }: { pathname: string }){
                         Content
                     </Link>
                     <Link
-                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
+                        className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:scale-105 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 ${
                             pathname === "/analytics" ? "bg-gray-100 text-gray-800" : ""
                         }`}
                         href="/analytics"

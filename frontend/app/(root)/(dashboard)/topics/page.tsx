@@ -7,7 +7,7 @@ export default function Page() {
     const userConvex = useQuery(api.functions.users.getUser);
     console.log(userConvex);
     if (userConvex != null) return (
-        <div>
+        <main>
             <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
   <div className="flex justify-between mb-4">
     <h1 className="text-3xl font-bold">Topic Dashboard</h1>
@@ -72,6 +72,6 @@ export default function Page() {
   </div>
 </div>
 
-        </div>
+        </main>
     );
 }

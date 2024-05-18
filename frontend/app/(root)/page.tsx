@@ -6,14 +6,27 @@ import { useConvexAuth } from "convex/react";
 import Head from 'next/head';
 import TeamFeed from "@/components/team/team-feed";
 import TopicFeed from "@/components/topics/topic-feed"
+import RippleLoader from "@/components/animations/ripple"
+
 
 export default function Home() {
-  const {isAuthenticated} = useConvexAuth();
+  const {isAuthenticated, isLoading} = useConvexAuth();
+
+  if (isLoading) return (
+    <>
+    <div className="fixed w-full mt-24 flex min-h-screen flex-col items-center justify-between ">
+      <RippleLoader />
+    </div>
+      
+    </>
+    
+  )
+
   if (!isAuthenticated) return (
     <>
-      <main className="fixed w-full mt-24 flex min-h-screen flex-col items-center justify-between ">
+      <div className="fixed w-full mt-24 flex min-h-screen flex-col items-center justify-between ">
       <LandingPage/>
-      </main>
+      </div>
     </>
 
   );
@@ -30,7 +43,7 @@ function HomeDashboard() {
   return (
     <div className="h-screen flex flex-col">
    
-      <main className="flex-1 p-6">
+      <div className="flex-1 p-6">
         <section className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Your Teams</h2>
           <TeamFeed feedMode="all" />
@@ -40,7 +53,7 @@ function HomeDashboard() {
           <TopicFeed feedMode="all" />
         </section>
         
-      </main>
+      </div>
     </div>
   );
 }

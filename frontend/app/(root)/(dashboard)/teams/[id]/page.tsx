@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     if (team) return (
       <div className="h-screen flex flex-col">
-        <main className="flex-1 overflow-y-auto p-6">
+        <div className="flex-1 overflow-y-auto p-6">
           <section className="mb-6">
             <h2 className="text-2xl font-bold mb-2">{team.name}</h2>
             <TopicFeed feedMode="team" teamId={params.id as Id<"teams">} />
@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <TeamTable teamId={params.id} />
             
           </section>
-        </main>
+        </div>
       </div>
     );
   }
