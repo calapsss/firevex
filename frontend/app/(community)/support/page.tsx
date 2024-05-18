@@ -6,7 +6,7 @@ function SupportPage() {
       <Head>
         <title>Support</title>
       </Head>
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto">
         <section className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Support Resources</h2>
           <ul className="flex flex-wrap -mx-4">

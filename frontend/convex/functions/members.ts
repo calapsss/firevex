@@ -196,6 +196,7 @@ export const leaveTeam = mutation ({
         .query("users")
         .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
         .unique();
+        
         //Validation
         if(user == null) {
             throw new Error("Please Login to Create a Topic")

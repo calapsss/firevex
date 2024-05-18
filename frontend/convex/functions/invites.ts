@@ -89,3 +89,56 @@ export const deleteCode = mutation ({
         return await ctx.db.delete(inviteCode._id)
     }
 })
+
+
+//JOIN TEAM
+export const joinTeam = mutation ({
+    args:  {
+        invite: v.id("invites")
+    },
+    handler: async (ctx, args) => {
+        //Get User Identity
+        const  identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+        throw new Error("No authenticated User")
+        }
+
+        //grab user identity
+        const admin  = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+        .unique();
+
+        //Validation
+        if(admin == null) {
+            throw new Error("Please Login to Join Team")
+        }
+        //Permission Check
+        const inviteCode = await ctx.db.get(args.invite)
+
+        //Role Check
+        if (!inviteCode){
+            throw new Error("No invite Code Exists")
+        }
+
+
+        //Retrieve member
+        
+        const member =  await ctx.db.query("members")
+            .withIndex("by_team_user", (q) => 
+                q.eq("teamId", inviteCode.teamId).eq("userId", admin._id))
+        .unique()
+
+        if(member){
+            throw new Error("You are already a member of this team")
+        }
+
+        //Create Member
+        return await ctx.db.insert("members", {
+            teamId: inviteCode.teamId,
+            userId: admin._id,
+            role: "member"
+        })
+
+    }
+})

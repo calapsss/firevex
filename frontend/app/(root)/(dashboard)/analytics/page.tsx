@@ -20,7 +20,7 @@ export default function Page() {
     console.log(teams)
     console.log(userConvex);
     if (userConvex != null && teams != null) return (
-        <>
+        <main className="p-6">
         
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
@@ -130,6 +130,6 @@ export default function Page() {
           </CardContent>
         </Card>
       </div>
-      </>      
+      </main>      
     );
 }
