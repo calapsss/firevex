@@ -51,13 +51,15 @@
 - [x] Basic Saas Schema
 - [x] UI Components for Left Sidebar
 - [x] UI Components for Create Team
+
+## Ongoing 
 - [ ] Page for Create Team
 - [ ] Invite Member Crud (Invite Codes)
 - [ ] Invite Member Dialog
 - [ ] Remove Team Member
 - [ ] Fix Tags to string
 
-## Ongoing 
+## TODO (Deadline - 5/18/24)
 - [ ] Fix Topbar edit account etc. 
 - [ ] UI Components for Team Dashboard Cards
 - [ ] UI Components for Team Roster Table
