@@ -110,6 +110,7 @@ export const updateRole = mutation({
         role: v.string()
     },
     handler: async(ctx, {userId, teamId, role}) =>  {
+
         const member = await ctx.db.query("members")
         .withIndex("by_team_user", (q) => q.eq("teamId", teamId).eq("userId", userId))
         .unique()
@@ -119,4 +120,98 @@ export const updateRole = mutation({
         const edit = await ctx.db.patch(member._id, {role: role})
         return edit
     },
+})
+
+
+// DELETE
+// Only to delete a user from team
+export const deleteMember = mutation ({
+    args:  {
+        userId : v.id("users"),
+        teamId: v.id("teams")
+    },
+    handler: async (ctx, args) => {
+        //Get User Identity
+        const  identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+        throw new Error("No authenticated User")
+        }
+        //grab user identity
+        const admin  = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+        .unique();
+        //Validation
+        if(admin == null) {
+            throw new Error("Please Login to Create a Topic")
+        }
+        //Permission Check
+        const adminMember = await ctx.db.query("members")
+            .withIndex("by_user", (q) => q.eq("userId", admin._id))
+            .unique()
+
+        //Role Check
+        if (!adminMember){
+            throw new Error("You are not a member of this team")
+        }
+
+        if (adminMember.role != "admin" && adminMember.role != "creator" ){
+            throw new Error("You do not have permissions to kick a user")
+        }
+
+        //Retrieve User to Kick
+        const kickMember =  await ctx.db.query("members")
+        .withIndex("by_team_user", (q) => q.eq("teamId",args.teamId).eq("userId", args.userId))
+        .unique()
+
+        
+        if (kickMember === null){
+            throw new Error("Member does not exist")
+        }
+        
+        
+        if(kickMember.role === "admin" || kickMember.role === "creator"){
+            throw new Error("You can not kick a fellow admin or creator in this team")
+        }
+        
+        //Delete
+        return await ctx.db.delete(kickMember._id)
+    }
+})
+
+
+// Leave Team
+export const leaveTeam = mutation ({
+    args:  { 
+        teamId: v.id("teams")
+    },
+    handler: async (ctx, args) => {
+        //Get User Identity
+        const  identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+        throw new Error("No authenticated User")
+        }
+        //grab user identity
+        const user  = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+        .unique();
+        //Validation
+        if(user == null) {
+            throw new Error("Please Login to Create a Topic")
+        }
+        
+
+        //Retrieve User to leave
+        const leaveTeam =  await ctx.db.query("members")
+        .withIndex("by_team_user", (q) => q.eq("teamId",args.teamId).eq("userId", user._id))
+        .unique()
+
+        if (leaveTeam === null){
+            throw new Error("Member does not exist")
+        }
+
+        //Delete
+        return await ctx.db.delete(leaveTeam._id)
+    }
 })

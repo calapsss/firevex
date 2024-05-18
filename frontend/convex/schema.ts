@@ -39,6 +39,16 @@ export default defineSchema({
     .index("by_team_role", ["teamId", "role"])
     .index("by_team_user", ["teamId", "userId"]),
 
+    //MemberInvite
+    invites: defineTable({
+        teamId: v.id("teams"),
+        userId: v.id("users"),
+        code: v.string()
+    })
+    .index("by_team", ["teamId"])
+    .index("by_user", ["userId"])    
+    .index("by_team_user", ["teamId", "userId"]),
+
     //Tags
     tags: defineTable({
         name: v.string()

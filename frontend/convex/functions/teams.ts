@@ -191,7 +191,7 @@ export const get = query({
 
 //DELETE
   //Delete a team
-  export const deleteUser = mutation({
+  export const deleteTeam = mutation({
     args: {
         teamId: v.id("teams")
     },
