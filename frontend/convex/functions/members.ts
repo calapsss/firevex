@@ -110,6 +110,33 @@ export const updateRole = mutation({
         role: v.string()
     },
     handler: async(ctx, {userId, teamId, role}) =>  {
+        //Get User Identity
+        const  identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+        throw new Error("No authenticated User")
+        }
+        //grab user identity
+        const admin  = await ctx.db
+        .query("users")
+        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
+        .unique();
+        //Validation
+        if(admin == null) {
+            throw new Error("Please Login to Create a Topic")
+        }
+        //Permission Check
+        const adminMember = await ctx.db.query("members")
+            .withIndex("by_team_user", (q) => q.eq("teamId", teamId).eq("userId", admin._id))
+            .unique()
+
+        //Role Check
+        if (!adminMember){
+            throw new Error("You are not a member of this team")
+        }
+
+        if (adminMember.role != "admin" && adminMember.role != "creator" ){
+            throw new Error("You do not have permissions to edit a user")
+        }
 
         const member = await ctx.db.query("members")
         .withIndex("by_team_user", (q) => q.eq("teamId", teamId).eq("userId", userId))
@@ -117,6 +144,15 @@ export const updateRole = mutation({
         if(member === null ){
             throw new Error("Member does not exist")
         }
+
+        if( member.role === "creator"){
+            throw new Error("You can not edit the creator of this team")
+        }
+
+        if(member.role === "admin" && adminMember.role != "creator"){
+            throw new Error("You can not edit a fellow admin in this team")
+        }
+
         const edit = await ctx.db.patch(member._id, {role: role})
         return edit
     },
@@ -147,8 +183,8 @@ export const deleteMember = mutation ({
         }
         //Permission Check
         const adminMember = await ctx.db.query("members")
-            .withIndex("by_user", (q) => q.eq("userId", admin._id))
-            .unique()
+        .withIndex("by_team_user", (q) => q.eq("teamId", args.teamId).eq("userId", admin._id))
+        .unique()
 
         //Role Check
         if (!adminMember){
@@ -175,7 +211,8 @@ export const deleteMember = mutation ({
         }
         
         //Delete
-        return await ctx.db.delete(kickMember._id)
+        await ctx.db.delete(kickMember._id)
+       
     }
 })
 

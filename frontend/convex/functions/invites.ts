@@ -47,7 +47,7 @@ export const create = mutation({
             code: inviteCode,
             userId: user._id
         });
-        return invite
+        return inviteCode
     }
 })
 

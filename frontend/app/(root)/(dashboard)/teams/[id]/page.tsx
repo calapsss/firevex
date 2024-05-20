@@ -11,6 +11,7 @@ import { ConvexHttpClient } from "convex/browser";
 import { TeamTable } from '@/components/team/team-table';
 import TopicFeed from "@/components/topics/topic-feed";
 import {Separator} from "@/components/ui/separator";
+import InviteCode from '@/components/team/invite-member';
 
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -18,7 +19,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     const team = await client.query(api.functions.teams.get, {
         teamId: params.id as Id<"teams">,
     });
-
     if (team) return (
       <div className="h-screen flex flex-col">
         <div className="flex-1 overflow-y-auto p-6">
@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <section className="mb-6 mt-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold mb-2">Team Roster</h2>
-              <Button> Invite Member</Button>              
+              <InviteCode teamId={team._id} />
             </div>
 
             <TeamTable teamId={params.id} />
